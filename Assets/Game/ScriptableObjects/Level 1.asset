@@ -10,8 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 422a0dc7b59e03c468b83d5173e6c2f5, type: 3}
-  m_Name: NewLevel
+  m_Name: Level 1
   m_EditorClassIdentifier: 
-  rows: 0
-  columns: 0
-  nodeLayout: []
+  rows: 2
+  columns: 2
+  nodeLayout:
+  - type: 4
+    initialRotation: 0
+    isFixed: 0
+  - type: 2
+    initialRotation: 90
+    isFixed: 0
+  - type: 1
+    initialRotation: 0
+    isFixed: 0
+  - type: 2
+    initialRotation: 180
+    isFixed: 0
