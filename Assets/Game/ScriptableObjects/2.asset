@@ -12,6 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422a0dc7b59e03c468b83d5173e6c2f5, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  rows: 0
-  columns: 0
-  nodeLayout: []
+  rows: 3
+  columns: 3
+  nodeLayout:
+  - type: 4
+    initialRotation: -90
+    isFixed: 0
+  - type: 2
+    initialRotation: 90
+    isFixed: 0
+  - type: 0
+    initialRotation: 180
+    isFixed: 0
+  - type: 0
+    initialRotation: 90
+    isFixed: 0
+  - type: 1
+    initialRotation: 180
+    isFixed: 0
+  - type: 0
+    initialRotation: 180
+    isFixed: 0
+  - type: 0
+    initialRotation: 0
+    isFixed: 0
+  - type: 2
+    initialRotation: 90
+    isFixed: 0
+  - type: 5
+    initialRotation: 0
+    isFixed: 0
