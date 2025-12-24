@@ -10,7 +10,12 @@ public class LevelMenuManager : MonoBehaviour
     void Awake() => Instance = this;
 
     void Start() => RefreshButtons();
-
+    private void OnEnable()
+    {
+        // This runs every time you "Go Back" to the menu
+        RefreshButtons();
+        Debug.Log("Menu Enabled: Refreshing Level States.");
+    }
     public void RefreshButtons()
     {
         // Get progress from PlayerPrefs (0 is the first level)

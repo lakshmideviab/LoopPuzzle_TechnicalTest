@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class GridManager : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class GridManager : MonoBehaviour
 
     [Header("Grid Layout")]
     public GridLayoutGroup gridLayout;
-    public float totalGridSize = 175f;   
-    public float cellSize = 35f;          
+    public float totalGridSize = 175f;
+    public float cellSize = 35f;
 
     [Header("Prefabs & Data")]
     public Node nodePrefab;
@@ -22,6 +23,8 @@ public class GridManager : MonoBehaviour
 
     [Header("UI")]
     public GameObject Winpanel;
+    public TextMeshProUGUI levelTitleText;
+
 
     private Node[,] grid;
     private int currentLevelIndex = 0;
@@ -33,7 +36,10 @@ public class GridManager : MonoBehaviour
     public void LoadLevel(int index)
     {
         if (index >= levels.Length) return;
-
+        if (levelTitleText != null)
+        {
+            levelTitleText.text = "Level " + (index + 1);
+        }
         currentLevelIndex = index;
         IsLevelFinished = false;
         GenerateGrid(levels[index]);
@@ -41,7 +47,7 @@ public class GridManager : MonoBehaviour
 
     private void CalculateCellSize(LevelData data)
     {
-        
+
         int maxCount = Mathf.Max(data.columns, data.rows);
         cellSize = totalGridSize / maxCount;
 
@@ -53,7 +59,7 @@ public class GridManager : MonoBehaviour
         foreach (Transform child in gridLayout.transform)
             Destroy(child.gameObject);
 
-       
+
         CalculateCellSize(data);
 
         grid = new Node[data.columns, data.rows];
@@ -202,5 +208,23 @@ public class GridManager : MonoBehaviour
             if (c[2]) Gizmos.DrawLine(p, p + Vector3.down * gizmoLength);
             if (c[3]) Gizmos.DrawLine(p, p + Vector3.left * gizmoLength);
         }
+    }
+
+    public void GoBackToMenu()
+    {
+        // 1. Play UI click sound
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.uiClick);
+
+        // 2. Show the Level Selection Panel
+        LevelMenuManager.Instance.levelPanel.SetActive(true);
+
+
+        foreach (Transform child in gridLayout.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+
     }
 }

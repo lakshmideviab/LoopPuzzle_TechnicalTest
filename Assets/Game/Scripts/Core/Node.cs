@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEditor.Rendering.LookDev;
 
 public class Node : MonoBehaviour, IPointerClickHandler
 {
@@ -45,7 +46,7 @@ public class Node : MonoBehaviour, IPointerClickHandler
             NodeType.Corner => new bool[] { false, false, true, true }, // Top, Right
             NodeType.Cross => new bool[] { true, true, true, true },
             NodeType.Source => new bool[] { false, true, false, false }, // Points Right
-            NodeType.Bulb => new bool[] { true, true, true, true },   // Receives Left
+            NodeType.Bulb => new bool[] { false, false, true, false },   // Receives Left
             _ => new bool[] { false, false, false, false }
         };
     }
@@ -91,7 +92,13 @@ public class Node : MonoBehaviour, IPointerClickHandler
         {
             if (!bulbParticles.isPlaying)
             {
+                Debug.Log("Hi");
                 bulbParticles.Play();
+                CameraShake shaker = Camera.main.GetComponent<CameraShake>();
+                if (shaker != null)
+                {
+                    StartCoroutine(shaker.Shake(0.15f, 0.2f)); // Short, light shake
+                }
                 // Optional: Add a small screen shake or sound here
                 //AudioManager.Instance.PlaySFX(AudioManager.Instance.powerOn);
             }
@@ -101,6 +108,6 @@ public class Node : MonoBehaviour, IPointerClickHandler
             bulbParticles.Stop();
         }
     }
-
-        public bool[] GetConnections() => connections;
+   
+    public bool[] GetConnections() => connections;
 }
