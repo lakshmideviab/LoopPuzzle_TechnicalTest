@@ -63,7 +63,7 @@ MonoBehaviour:
   - type: 0
     initialRotation: 90
     isFixed: 0
-  - type: 2
+  - type: 0
     initialRotation: 90
     isFixed: 0
   - type: 5
