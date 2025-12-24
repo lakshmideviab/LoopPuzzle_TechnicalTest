@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
-using UnityEditor.Rendering.LookDev;
 
 public class Node : MonoBehaviour, IPointerClickHandler
 {
@@ -92,15 +91,10 @@ public class Node : MonoBehaviour, IPointerClickHandler
         {
             if (!bulbParticles.isPlaying)
             {
-                Debug.Log("Hi");
+                
                 bulbParticles.Play();
-                CameraShake shaker = Camera.main.GetComponent<CameraShake>();
-                if (shaker != null)
-                {
-                    StartCoroutine(shaker.Shake(0.15f, 0.2f)); // Short, light shake
-                }
-                // Optional: Add a small screen shake or sound here
-                //AudioManager.Instance.PlaySFX(AudioManager.Instance.powerOn);
+                
+                
             }
         }
         else if (isBulb && !state && bulbParticles != null)
@@ -108,6 +102,23 @@ public class Node : MonoBehaviour, IPointerClickHandler
             bulbParticles.Stop();
         }
     }
-   
+    public IEnumerator Shake(float duration, float magnitude)
+    {
+        Vector3 originalPos = transform.localPosition;
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            transform.localPosition = new Vector3(x, y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+            yield return null; // Wait until next frame
+        }
+
+        transform.localPosition = originalPos;
+    }
     public bool[] GetConnections() => connections;
 }
